@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เขาใหญ่ Countdown 🌿</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%; height: 100%;
+    font-family: 'Kanit', sans-serif;
+    background: #0d1a0f;
+    overflow: hidden;
+  }
+
+  .scene {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #060e07 0%, #0f2212 30%, #1a3a1f 60%, #2d5a35 80%, #3a7040 100%);
+  }
+
+  /* Stars */
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--d, 3s) ease-in-out infinite alternate;
+  }
+  @keyframes twinkle { from { opacity: 0.15; } to { opacity: 1; } }
+
+  /* Moon */
+  .moon {
+    position: absolute;
+    top: 5vh; right: 8vw;
+    width: clamp(44px, 7vw, 70px);
+    height: clamp(44px, 7vw, 70px);
+    border-radius: 50%;
+    background: #f5e6a3;
+    box-shadow: 0 0 40px #f5e6a360, 0 0 80px #f5e6a320;
+  }
+  .moon::after {
+    content: '';
+    position: absolute;
+    top: 8%; left: 18%;
+    width: 80%; height: 80%;
+    border-radius: 50%;
+    background: #0f2212;
+  }
+
+  /* Mountains */
+  .mountains {
+    position: absolute;
+    bottom: clamp(140px, 22vh, 220px);
+    width: 100%;
+    pointer-events: none;
+  }
+
+  /* Mist */
+  .mist {
+    position: absolute;
+    width: 160%;
+    left: -30%;
+    height: clamp(30px, 5vh, 60px);
+    background: rgba(180, 220, 170, 0.07);
+    border-radius: 50%;
+    filter: blur(14px);
+    animation: driftmist 9s ease-in-out infinite alternate;
+  }
+  .mist1 { bottom: clamp(130px, 20vh, 200px); }
+  .mist2 { bottom: clamp(148px, 23vh, 222px); background: rgba(200,240,190,0.04); animation-delay: -5s; animation-duration: 13s; }
+  @keyframes driftmist {
+    from { transform: translateX(0) scaleX(1); opacity: 0.6; }
+    to { transform: translateX(-4%) scaleX(1.08); opacity: 1; }
+  }
+
+  /* Forest */
+  .forest {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: clamp(140px, 22vh, 220px);
+    pointer-events: none;
+  }
+
+  /* Fireflies */
+  .firefly {
+    position: absolute;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #aaff88;
+    box-shadow: 0 0 8px 2px #aaff8899;
+    animation: fly var(--fd, 6s) ease-in-out infinite alternate,
+               glow var(--fg, 2s) ease-in-out infinite alternate;
+  }
+  @keyframes fly {
+    from { transform: translate(0, 0); }
+    to { transform: translate(var(--fx, 20px), var(--fy, -15px)); }
+  }
+  @keyframes glow {
+    from { opacity: 0.05; box-shadow: 0 0 4px 1px #aaff8850; }
+    to { opacity: 0.95; box-shadow: 0 0 10px 3px #aaff88aa; }
+  }
+
+  /* Countdown card */
+  .card {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -52%);
+    text-align: center;
+    z-index: 20;
+    width: min(90vw, 480px);
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: clamp(10px, 2.5vw, 13px);
+    letter-spacing: 4px;
+    color: #88cc77;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+
+  .main-title {
+    font-size: clamp(22px, 6vw, 38px);
+    font-weight: 600;
+    color: #e8f5e0;
+    text-shadow: 0 2px 24px #000c;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .sub {
+    font-size: clamp(11px, 2.5vw, 14px);
+    color: #88cc77;
+    margin-bottom: clamp(18px, 4vh, 32px);
+    opacity: 0.6;
+  }
+
+  .units {
+    display: flex;
+    gap: clamp(6px, 2vw, 14px);
+    justify-content: center;
+    margin-bottom: clamp(14px, 3vh, 24px);
+    align-items: center;
+  }
+
+  .unit { display: flex; flex-direction: column; align-items: center; }
+
+  .unit-bg {
+    background: rgba(8, 22, 10, 0.78);
+    border: 1px solid rgba(100, 180, 80, 0.28);
+    border-radius: 12px;
+    padding: clamp(10px,2.5vh,16px) clamp(12px,3vw,22px) clamp(8px,2vh,12px);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    min-width: clamp(60px, 17vw, 90px);
+  }
+  .unit-bg::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(140,255,90,0.35), transparent);
+  }
+
+  .num {
+    font-size: clamp(36px, 10vw, 58px);
+    font-weight: 600;
+    color: #d4f0c0;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 24px rgba(140,255,80,0.25);
+    display: block;
+  }
+
+  .lbl {
+    font-size: clamp(9px, 2vw, 11px);
+    letter-spacing: 2px;
+    color: #78bb67;
+    margin-top: 6px;
+    opacity: 0.65;
+    text-transform: uppercase;
+  }
+
+  .sep {
+    font-size: clamp(28px, 7vw, 44px);
+    color: rgba(140, 220, 90, 0.35);
+    padding-bottom: clamp(14px, 3vh, 22px);
+    font-weight: 300;
+    flex-shrink: 0;
+  }
+
+  .date-tag {
+    font-size: clamp(10px, 2.2vw, 12px);
+    color: rgba(180, 230, 160, 0.4);
+    letter-spacing: 2px;
+  }
+
+  .arrived {
+    font-size: clamp(18px, 5vw, 32px);
+    color: #a8e890;
+    text-shadow: 0 0 30px #88ff6680;
+    animation: pulse 2s ease-in-out infinite alternate;
+  }
+  @keyframes pulse { from { opacity: 0.7; } to { opacity: 1; } }
+</style>
+</head>
+<body>
+<div class="scene" id="scene">
+  <div id="stars"></div>
+  <div class="moon"></div>
+
+  <div class="mountains">
+    <svg width="100%" viewBox="0 0 800 170" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,170 100,55 190,100 290,18 400,88 510,38 620,78 700,48 800,88 800,170" fill="#0d1f0f"/>
+      <polygon points="0,170 70,105 150,130 240,68 360,118 460,78 560,108 660,68 760,100 800,78 800,170" fill="#152a17"/>
+      <polygon points="0,170 0,145 55,122 130,142 210,112 310,132 400,108 490,128 580,110 670,130 750,112 800,132 800,170" fill="#1c3620"/>
+    </svg>
+  </div>
+
+  <div class="mist mist1"></div>
+  <div class="mist mist2"></div>
+
+  <div class="forest">
+    <svg width="100%" viewBox="0 0 800 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#162d18" opacity="0.92">
+        <polygon points="20,140 42,72 64,140"/>
+        <polygon points="55,148 82,76 109,148"/>
+        <polygon points="38,152 66,90 94,152"/>
+        <polygon points="110,138 136,64 162,138"/>
+        <polygon points="148,150 175,78 202,150"/>
+        <polygon points="195,134 222,60 249,134"/>
+        <polygon points="238,145 267,70 296,145"/>
+        <polygon points="295,132 327,56 359,132"/>
+        <polygon points="348,144 378,68 408,144"/>
+        <polygon points="405,132 437,60 469,132"/>
+        <polygon points="458,142 490,65 522,142"/>
+        <polygon points="515,130 550,52 585,130"/>
+        <polygon points="575,140 607,63 639,140"/>
+        <polygon points="628,132 663,58 698,132"/>
+        <polygon points="685,140 718,68 751,140"/>
+        <polygon points="738,132 772,56 806,132"/>
+      </g>
+      <g fill="#1f4a26">
+        <polygon points="-5,220 22,138 49,220"/>
+        <polygon points="42,220 74,120 106,220"/>
+        <polygon points="88,220 125,110 162,220"/>
+        <polygon points="142,220 176,116 210,220"/>
+        <polygon points="195,220 230,106 265,220"/>
+        <polygon points="252,220 290,112 328,220"/>
+        <polygon points="315,220 355,102 395,220"/>
+        <polygon points="380,220 420,108 460,220"/>
+        <polygon points="448,220 488,106 528,220"/>
+        <polygon points="515,220 554,112 593,220"/>
+        <polygon points="582,220 622,108 662,220"/>
+        <polygon points="648,220 688,116 728,220"/>
+        <polygon points="714,220 754,110 794,220"/>
+        <polygon points="768,220 800,120 800,220"/>
+      </g>
+      <ellipse cx="50" cy="216" rx="52" ry="10" fill="#1b4020"/>
+      <ellipse cx="185" cy="217" rx="62" ry="10" fill="#1d4522"/>
+      <ellipse cx="335" cy="216" rx="70" ry="10" fill="#1b4020"/>
+      <ellipse cx="510" cy="217" rx="65" ry="10" fill="#1d4522"/>
+      <ellipse cx="680" cy="216" rx="68" ry="10" fill="#1b4020"/>
+      <rect x="0" y="212" width="800" height="8" fill="#122214"/>
+    </svg>
+  </div>
+
+  <div id="fireflies"></div>
+
+  <div class="card">
+    <div class="tag">เขาใหญ่ · Khao Yai</div>
+    <div class="main-title" id="main-title">ใกล้แล้ว...</div>
+    <div class="sub">1 May 2026</div>
+    <div class="units" id="units">
+      <div class="unit">
+        <div class="unit-bg"><span class="num" id="d">--</span></div>
+        <div class="lbl">วัน</div>
+      </div>
+      <div class="sep">:</div>
+      <div class="unit">
+        <div class="unit-bg"><span class="num" id="h">--</span></div>
+        <div class="lbl">ชั่วโมง</div>
+      </div>
+      <div class="sep">:</div>
+      <div class="unit">
+        <div class="unit-bg"><span class="num" id="m">--</span></div>
+        <div class="lbl">นาที</div>
+      </div>
+      <div class="sep">:</div>
+      <div class="unit">
+        <div class="unit-bg"><span class="num" id="s">--</span></div>
+        <div class="lbl">วินาที</div>
+      </div>
+    </div>
+    <div class="date-tag">28 Apr — 1 May 2026</div>
+  </div>
+</div>
+
+<script>
+const target = new Date('2026-05-01T00:00:00');
+function pad(n) { return String(Math.max(0,n)).padStart(2,'0'); }
+
+function tick() {
+  const diff = target - new Date();
+  if (diff <= 0) {
+    document.getElementById('units').innerHTML = '<div class="arrived">🌿 ถึงแล้ว! ไปเที่ยวได้เลย</div>';
+    document.getElementById('main-title').textContent = 'มาถึงแล้ว!';
+    return;
+  }
+  document.getElementById('d').textContent = pad(Math.floor(diff/86400000));
+  document.getElementById('h').textContent = pad(Math.floor((diff%86400000)/3600000));
+  document.getElementById('m').textContent = pad(Math.floor((diff%3600000)/60000));
+  document.getElementById('s').textContent = pad(Math.floor((diff%60000)/1000));
+}
+tick();
+setInterval(tick, 1000);
+
+// Stars
+const frag = document.createDocumentFragment();
+for (let i = 0; i < 80; i++) {
+  const el = document.createElement('div');
+  el.className = 'star';
+  const sz = (Math.random()*1.8+0.8).toFixed(1);
+  el.style.cssText = `width:${sz}px;height:${sz}px;top:${(Math.random()*55).toFixed(1)}%;left:${(Math.random()*100).toFixed(1)}%;--d:${(Math.random()*3+1.5).toFixed(1)}s;opacity:${(Math.random()*0.5+0.2).toFixed(2)};animation-delay:${(Math.random()*5).toFixed(1)}s`;
+  frag.appendChild(el);
+}
+document.getElementById('stars').appendChild(frag);
+
+// Fireflies
+const ff = document.getElementById('fireflies');
+for (let i = 0; i < 22; i++) {
+  const el = document.createElement('div');
+  el.className = 'firefly';
+  el.style.cssText = `left:${(Math.random()*88+4).toFixed(1)}%;top:${(38+Math.random()*42).toFixed(1)}%;--fd:${(Math.random()*7+4).toFixed(1)}s;--fg:${(Math.random()*2.5+1).toFixed(1)}s;--fx:${(Math.random()*70-35).toFixed(0)}px;--fy:${(Math.random()*50-25).toFixed(0)}px;animation-delay:${(Math.random()*7).toFixed(1)}s`;
+  ff.appendChild(el);
+}
+</script>
+</body>
+</html>
