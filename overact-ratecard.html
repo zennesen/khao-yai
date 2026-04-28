@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OVERACT — Rate Card 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sarabun:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dim: #7a6030;
+  --dark: #0a0a08;
+  --dark2: #111109;
+  --dark3: #1a1a14;
+  --cream: #f0ead8;
+  --cream-dim: #8a8070;
+  --white: #ffffff;
+  --accent: #d4a847;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Sarabun', sans-serif;
+  background: var(--dark);
+  color: var(--cream);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .2s, height .2s, opacity .2s;
+}
+.cursor-ring {
+  position: fixed;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,168,76,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all .12s ease-out;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.35;
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 60px 24px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(201,168,76,0.06) 0%, transparent 50%),
+    var(--dark);
+}
+
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+}
+
+.hero-overline {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp .8s .2s forwards;
+}
+
+.hero-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 20vw, 180px);
+  line-height: 0.9;
+  color: var(--white);
+  letter-spacing: 4px;
+  opacity: 0;
+  animation: fadeUp .8s .4s forwards;
+  position: relative;
+}
+.hero-logo span {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dim));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: var(--cream-dim);
+  text-transform: uppercase;
+  margin-top: 16px;
+  opacity: 0;
+  animation: fadeUp .8s .6s forwards;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 60px;
+  opacity: 0;
+  animation: fadeUp .8s .8s forwards;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--gold);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--cream-dim);
+  margin-top: 4px;
+}
+
+.hero-platforms {
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+  opacity: 0;
+  animation: fadeUp .8s 1s forwards;
+}
+.platform-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 100px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--cream-dim);
+  font-family: 'Space Mono', monospace;
+  transition: all .3s;
+}
+.platform-pill:hover { border-color: var(--gold); color: var(--gold); }
+.platform-dot { width: 6px; height: 6px; border-radius: 50%; }
+.dot-yt { background: #ff4444; }
+.dot-tt { background: #ffffff; }
+.dot-fb { background: #4488ff; }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp .8s 1.4s forwards;
+}
+.scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(var(--gold), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+.scroll-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--gold-dim);
+  writing-mode: vertical-rl;
+}
+@keyframes scrollPulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+
+/* ─── SECTION BASE ─── */
+section {
+  padding: 120px 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 8vw, 72px);
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 40px;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+  margin: 0 auto;
+}
+
+/* ─── PACKAGE CARDS ─── */
+.packages {
+  display: grid;
+  gap: 2px;
+  margin-top: 60px;
+}
+
+.pkg-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 2px;
+  background: var(--dark2);
+  transition: border-color .4s;
+}
+.pkg-card:hover { border-color: rgba(201,168,76,0.5); }
+
+.pkg-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transition: transform .5s ease;
+}
+.pkg-card:hover::before { transform: scaleX(1); }
+
+.pkg-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 40px 48px;
+}
+
+.pkg-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.pkg-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 6vw, 56px);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.pkg-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--cream-dim);
+  max-width: 480px;
+}
+
+.pkg-price-block {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.pkg-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 60px);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.pkg-currency {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold-dim);
+  margin-top: 4px;
+}
+
+/* Hard sell badge */
+.pkg-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid var(--gold);
+  border-radius: 100px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+/* ─── TERMS ─── */
+.terms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.1);
+  margin-top: 48px;
+}
+
+.term-item {
+  background: var(--dark2);
+  padding: 32px;
+  position: relative;
+  transition: background .3s;
+}
+.term-item:hover { background: var(--dark3); }
+
+.term-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: rgba(201,168,76,0.15);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.term-text {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--cream-dim);
+}
+
+.term-text strong {
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.term-warn {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #c0603a;
+  border-left: 2px solid #c0603a;
+  padding-left: 8px;
+  line-height: 1.6;
+}
+
+/* ─── PRODUCTION NOTE ─── */
+.prod-note {
+  background: var(--dark3);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-left: 3px solid var(--gold);
+  padding: 40px 48px;
+  margin-top: 60px;
+}
+
+.prod-note-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.prod-note-text {
+  font-size: 15px;
+  line-height: 2;
+  color: var(--cream-dim);
+}
+
+.prod-note-text strong { color: var(--cream); }
+
+/* ─── ADDONS ─── */
+.addons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.addon-card {
+  border: 1px solid rgba(201,168,76,0.15);
+  padding: 24px;
+  position: relative;
+  transition: all .3s;
+}
+.addon-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+
+.addon-icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.addon-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+
+.addon-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--gold);
+}
+
+.addon-note {
+  font-size: 12px;
+  color: var(--cream-dim);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+/* ─── CONTACT ─── */
+.contact-section {
+  text-align: center;
+  padding: 100px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 70%);
+}
+
+.contact-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 10vw, 100px);
+  color: var(--white);
+  line-height: 1;
+  position: relative;
+}
+
+.contact-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 16px 32px;
+  border: 1px solid var(--gold);
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  position: relative;
+  transition: all .3s;
+  cursor: pointer;
+}
+.contact-line:hover {
+  background: var(--gold);
+  color: var(--dark);
+}
+
+.footer-bar {
+  border-top: 1px solid rgba(201,168,76,0.1);
+  padding: 32px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.footer-copy {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cream-dim);
+}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid rgba(201,168,76,0.15);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  padding: 16px 0;
+  background: var(--dark2);
+}
+.marquee-track {
+  display: flex;
+  gap: 60px;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+.marquee-item {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 4px;
+  color: rgba(201,168,76,0.4);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.marquee-dot {
+  color: var(--gold);
+}
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── GLITCH ─── */
+.glitch {
+  position: relative;
+}
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  font-family: 'Bebas Neue', sans-serif;
+}
+.glitch::before {
+  color: #ff4444;
+  clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+  transform: translateX(-2px);
+  animation: glitch1 4s infinite;
+}
+.glitch::after {
+  color: #44ffee;
+  clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%);
+  transform: translateX(2px);
+  animation: glitch2 4s infinite;
+}
+@keyframes glitch1 {
+  0%,90%,100%{opacity:0;transform:translateX(-2px)}
+  92%{opacity:1;transform:translateX(-4px)}
+  94%{opacity:0}
+  96%{opacity:1;transform:translateX(3px)}
+  98%{opacity:0}
+}
+@keyframes glitch2 {
+  0%,90%,100%{opacity:0;transform:translateX(2px)}
+  93%{opacity:1;transform:translateX(4px)}
+  95%{opacity:0}
+  97%{opacity:1;transform:translateX(-2px)}
+  99%{opacity:0}
+}
+
+/* particle canvas */
+#particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; }
+
+@media (max-width: 600px) {
+  .pkg-inner { grid-template-columns: 1fr; padding: 28px 24px; }
+  .pkg-price-block { text-align: left; }
+  .hero-stats { gap: 28px; }
+  .prod-note { padding: 28px 24px; }
+  .footer-bar { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- HERO -->
+<section class="hero" style="max-width:100%;padding:0;">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:60px 24px;">
+    <div class="hero-overline">Short Clip Rate Card · 2026</div>
+    <h1 class="hero-logo glitch" data-text="OVERACT">OVER<span>ACT</span></h1>
+    <p class="hero-sub">Content Creator · Digital Storyteller</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">3M+</div>
+        <div class="hero-stat-label">Followers</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Platforms</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">2</div>
+        <div class="hero-stat-label">Packages</div>
+      </div>
+    </div>
+    <div class="hero-platforms">
+      <div class="platform-pill"><span class="platform-dot dot-yt"></span>YouTube</div>
+      <div class="platform-pill"><span class="platform-dot dot-tt"></span>TikTok</div>
+      <div class="platform-pill"><span class="platform-dot dot-fb"></span>Facebook</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span class="scroll-text">SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">OVERACT</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">SHORT CLIP</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">TIE-IN</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">ADS HARD SELL</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">3 MILLION FOLLOWERS</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">OVERACT</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">SHORT CLIP</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">TIE-IN</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">ADS HARD SELL</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">3 MILLION FOLLOWERS</span><span class="marquee-item marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- PACKAGES -->
+<section>
+  <div class="section-label reveal">— Packages</div>
+  <h2 class="section-title reveal">RATE CARD</h2>
+  <div class="divider reveal"></div>
+
+  <div class="packages">
+
+    <!-- PACKAGE 1: ปกติ -->
+    <div class="pkg-card reveal reveal-delay-1">
+      <div class="pkg-inner">
+        <div>
+          <span class="pkg-badge">Package 01</span>
+          <div class="pkg-name">TIE-IN ปกติ</div>
+          <p class="pkg-desc">
+            ทางช่องผลิตคอนเทนต์เรื่องราวสนุกๆ สำหรับการโปรโมทสินค้า<br>
+            <strong style="color:var(--cream);">ไม่ Hard Sell</strong> — การขายเป็นไปตามสไตล์ของช่อง<br>
+            เหมาะสำหรับลูกค้าที่คิดเนื้อหามาให้ หรือไม่ใช่สไตล์ Hard Sell
+          </p>
+        </div>
+        <div class="pkg-price-block">
+          <div class="pkg-price">150,000</div>
+          <div class="pkg-currency">THB / CLIP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACKAGE 2: Hard Sell -->
+    <div class="pkg-card reveal reveal-delay-2" style="border-color:rgba(201,168,76,0.3);">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold-dim),var(--gold-light),var(--gold-dim));"></div>
+      <div class="pkg-inner">
+        <div>
+          <span class="pkg-badge" style="border-color:#e8603a;color:#e8603a;">Package 02 · Premium</span>
+          <div class="pkg-name">ADS HARD SELL</div>
+          <p class="pkg-desc">
+            สำหรับงานรูปแบบขาย Hard Sell เต็มรูปแบบ<br>
+            ขายทั้งคลิป หรือลูกค้าคิดเนื้อเรื่องส่งมา<br>
+            <strong style="color:var(--cream);">*ต้องบูสคลิปถึงยอดวิว 500,000+ ใน TikTok</strong>
+          </p>
+        </div>
+        <div class="pkg-price-block">
+          <div class="pkg-price" style="font-size:clamp(40px,6vw,68px);">250,000</div>
+          <div class="pkg-currency">THB / CLIP</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TERMS ปกติ -->
+<section style="padding-top:0;">
+  <div class="section-label reveal">— เงื่อนไขการจ้างงาน</div>
+  <h2 class="section-title reveal">PACKAGE ปกติ</h2>
+  <div class="divider reveal"></div>
+
+  <div class="terms-grid">
+    <div class="term-item reveal reveal-delay-1">
+      <div class="term-num">01</div>
+      <div class="term-text">
+        RATE ราคาปกตินี้ ทางช่องไม่สะดวกขาย <strong>HARD SELL</strong><br>
+        (ลูกค้าคิดเนื้อหามาให้ หรือไม่ใช่สไตล์ช่อง)
+      </div>
+    </div>
+    <div class="term-item reveal reveal-delay-2">
+      <div class="term-num">02</div>
+      <div class="term-text">
+        ทางช่องไม่มีการขึ้น <strong>SUPER</strong> ใดๆ ในคลิป<br>
+        เพื่อการดูง่าย และดูไม่ Hard Sell มากจนคนดูปัดหนี
+      </div>
+    </div>
+    <div class="term-item reveal reveal-delay-3">
+      <div class="term-num">03</div>
+      <div class="term-text">
+        หากมีการปรับแก้เนื้อหา หรือเพิ่มเติม หลังจาก <strong>Approved Story Board</strong> แล้ว ขออนุญาตปรับ <strong>50,000 บาท</strong>
+        <div class="term-warn">**แต่ถ้าแก้ให้ Hard Sell ขอยกเลิกการจ้างทันที โดยปรับเงิน 80,000 บาท และจะไม่มีการลงงานใดๆ ทั้งสิ้น**</div>
+      </div>
+    </div>
+    <div class="term-item reveal reveal-delay-4">
+      <div class="term-num">04</div>
+      <div class="term-text">
+        การผลิตคลิปเป็นตามสไตล์การเล่าเรื่องของช่องเท่านั้น เพราะถ้ามีการขายที่มากเกินไป หรือเข้ามาเกี่ยวข้องกับเส้นเรื่องที่ทางช่องพรีเซนต์เยอะเกินไป<br>จะทำให้คนดูปัดผ่านได้เร็ว และ<strong>ส่งผลเสียกับ Account ช่องได้</strong>
+      </div>
+    </div>
+    <div class="term-item reveal reveal-delay-1">
+      <div class="term-num">05</div>
+      <div class="term-text">
+        <strong>ถ่ายทำในกรุงเทพ:</strong> มีค่าใช้จ่าย <strong>2,000 บาท</strong><br>
+        (ยกเว้น: ร้านสะดวกซื้อ หรือห้างใกล้เคียง)<br><br>
+        <strong>ถ่ายทำนอกสถานที่ นอกเหนือกรุงเทพ:</strong><br>
+        ลูกค้าดูแลการเดินทาง และที่พักให้ (สำหรับ 3–4 คน)<br>
+        หรือ ถ้าทางเราจัดการเอง มีค่าใช้จ่ายเพิ่ม <strong>+25,000 บาท</strong>
+      </div>
+    </div>
+    <div class="term-item reveal reveal-delay-2">
+      <div class="term-num">06</div>
+      <div class="term-text">
+        หากเป็น <strong>งานเร่งด่วน</strong> หรือ <strong>แทรกคิว</strong><br>
+        มีค่าใช้จ่ายเพิ่มเติม <strong>+10,000 บาท</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TERMS Hard Sell -->
+<section style="padding-top:0;">
+  <div class="section-label reveal">— เงื่อนไขการจ้างงาน</div>
+  <h2 class="section-title reveal">PACKAGE ADS HARD SELL</h2>
+  <div class="divider reveal"></div>
+
+  <div class="terms-grid">
+    <div class="term-item reveal reveal-delay-1">
+      <div class="term-num">01</div>
+      <div class="term-text">
+        ทางลูกค้าต้องบูสคลิปให้ถึงยอดวิว <strong>500,000+</strong> ในช่องทาง <strong>TikTok</strong><br>
+        <span style="color:var(--cream-dim);font-size:13px;">(เนื่องจากเป็นคลิปขาย ยอดจะไม่ได้สูงมาก คลิปแนวนี้ส่งผลเสียกับ Account ช่องอย่างมาก AI TikTok มักจะลดการมองเห็นของช่องในระยะยาว)</span>
+      </div>
+    </div>
+    <div class="term-item reveal reveal-delay-2">
+      <div class="term-num">02</div>
+      <div class="term-text">
+        หากมีการปรับแก้เนื้อหา (หรือเพิ่มเติม) หลังจาก <strong>Approved Story Board</strong> แล้ว<br>ขออนุญาตปรับ <strong>50,000 บาท</strong>
+      </div>
+    </div>
+    <div class="term-item reveal reveal-delay-3">
+      <div class="term-num">03</div>
+      <div class="term-text">
+        <strong>ถ่ายทำนอกสถานที่ นอกเหนือกรุงเทพ:</strong><br>
+        ลูกค้าดูแลการเดินทาง และที่พักให้ (สำหรับ 3–4 คน)<br>
+        หรือ ถ้าทางเราจัดการเอง มีค่าใช้จ่ายเพิ่ม <strong>+25,000 บาท</strong>
+      </div>
+    </div>
+    <div class="term-item reveal reveal-delay-4">
+      <div class="term-num">04</div>
+      <div class="term-text">
+        หากเป็น <strong>งานเร่งด่วน</strong> หรือ <strong>แทรกคิว</strong><br>
+        มีค่าใช้จ่ายเพิ่มเติม <strong>+20,000 บาท</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADD-ONS SUMMARY -->
+<section style="padding-top:0;">
+  <div class="section-label reveal">— ค่าใช้จ่ายเพิ่มเติม</div>
+  <h2 class="section-title reveal">ADD-ONS</h2>
+  <div class="divider reveal"></div>
+
+  <div class="addons">
+    <div class="addon-card reveal reveal-delay-1">
+      <div class="addon-icon">✏️</div>
+      <div class="addon-title">แก้ไขหลัง Approved</div>
+      <div class="addon-price">+50,000</div>
+      <div class="addon-note">ต่อครั้ง หลังจาก Story Board ได้รับการ Approve แล้ว</div>
+    </div>
+    <div class="addon-card reveal reveal-delay-2">
+      <div class="addon-icon">🚗</div>
+      <div class="addon-title">ถ่ายทำในกรุงเทพ</div>
+      <div class="addon-price">+2,000</div>
+      <div class="addon-note">ยกเว้นร้านสะดวกซื้อ หรือห้างใกล้เคียง (เฉพาะ Package ปกติ)</div>
+    </div>
+    <div class="addon-card reveal reveal-delay-3">
+      <div class="addon-icon">✈️</div>
+      <div class="addon-title">นอกสถานที่ / ต่างจังหวัด</div>
+      <div class="addon-price">+25,000</div>
+      <div class="addon-note">กรณีทีมจัดการเอง (3–4 คน) หรือลูกค้าดูแลเดินทาง + ที่พักให้</div>
+    </div>
+    <div class="addon-card reveal reveal-delay-4">
+      <div class="addon-icon">⚡</div>
+      <div class="addon-title">งานเร่งด่วน / แทรกคิว</div>
+      <div class="addon-price">+10,000–20,000</div>
+      <div class="addon-note">ปกติ +10,000 / Hard Sell +20,000 บาท</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTION NOTE -->
+<section style="padding-top:0;">
+  <div class="section-label reveal">— Philosophy</div>
+  <h2 class="section-title reveal">PRODUCTION<br>APPROACH</h2>
+  <div class="divider reveal"></div>
+
+  <div class="prod-note reveal">
+    <div class="prod-note-title">** การผลิตของช่องเรา **</div>
+    <div class="prod-note-text">
+      คือ นำ <strong>Key Message</strong> มาขายในสไตล์เรา และหากบรีฟที่ทางลูกค้าส่งมา มีการขายที่ค่อนข้าง Hard Sell (ตามดุลพินิจจากทางเรา) ทางช่องขอลดทอน การขายบางส่วนลง <strong>แต่ Key Messages หลักยังอยู่</strong><br><br>
+      ทั้งนี้ทางช่องให้ความสำคัญกับผลงาน ให้มีเอเนอร์จีที่ดีที่สุด เพื่อให้ผู้ติดตาม <strong>และ ลูกค้าผู้จ้างงานพึงพอใจค่ะ</strong>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section">
+  <div class="contact-bg"></div>
+  <div class="section-label reveal" style="text-align:center;display:block;">— Get In Touch</div>
+  <div class="contact-title reveal">LET'S<br>WORK<br>TOGETHER</div>
+  <div style="margin-top:40px;" class="reveal">
+    <div class="contact-line">
+      <span>LINE OA</span>
+      <span style="color:var(--gold-light);font-weight:700;">@OVERACT</span>
+    </div>
+  </div>
+  <div style="margin-top:16px;font-size:13px;letter-spacing:2px;color:var(--cream-dim);" class="reveal">YouTube · TikTok · Facebook</div>
+</div>
+
+<div class="footer-bar">
+  <div class="footer-copy">© 2026 OVERACT · All rights reserved</div>
+  <div class="footer-copy">Rate Card v2026 · Confidential</div>
+</div>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+},{threshold:0.1});
+reveals.forEach(el=>io.observe(el));
+
+// Particles
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+let W,H,pts=[];
+function resize(){ W=canvas.width=innerWidth; H=canvas.height=innerHeight; }
+resize(); window.addEventListener('resize',resize);
+
+function mkPt(){
+  return {
+    x:Math.random()*W, y:Math.random()*H,
+    vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3,
+    r:Math.random()*1.5+.5,
+    o:Math.random()*.5+.1
+  };
+}
+for(let i=0;i<60;i++) pts.push(mkPt());
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>W) p.vx*=-1;
+    if(p.y<0||p.y>H) p.vy*=-1;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(201,168,76,${p.o})`;
+    ctx.fill();
+  });
+  // lines between nearby
+  for(let i=0;i<pts.length;i++){
+    for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<100){
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x,pts[i].y);
+        ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(201,168,76,${.12*(1-d/100)})`;
+        ctx.lineWidth=.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
